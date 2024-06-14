@@ -16,4 +16,10 @@ class ClassApiCall(APIView):
             return Response({"message":"created"},status=status.HTTP_200_OK)
         else:
             return Response(item.errors,status=status.HTTP_400_BAD_REQUEST)
+    def delete(self,request,id):
+        item=Class.objects.get(id=id)
+        item.delete()
+        return Response({"message":f"deleted Sucessfully {id}"},status=status.HTTP_200_OK)
+    
+        
 
