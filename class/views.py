@@ -20,6 +20,13 @@ class ClassApiCall(APIView):
         item=Class.objects.get(id=id)
         item.delete()
         return Response({"message":f"deleted Sucessfully {id}"},status=status.HTTP_200_OK)
-    
+    def put(self,request,id):
+        item=Class.objects.get(id=id)
+        seri=ClassSerializer(instance=item,data=request.data,partial=True)
+        if seri.is_valid():
+            seri.save()
+            return Response({"message":f"Upodate Sucessfully {seri.data}"},status=status.HTTP_200_OK)
+        else:
+            return Response(seri.errors,status=status.HTTP_400_BAD_REQUEST)
         
 
